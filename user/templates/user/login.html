@@ -1,0 +1,24 @@
+{% extends 'student/base.html'%}
+{% load crispy_forms_tags %}
+{% block navli %}
+    {{ block.super }}
+{% endblock navli %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-8 offset-2">
+        <h4 class="text-center alert alert-info">Login User</h4>
+        {% if messages %}
+            {% for message in messages %}
+            <span {% if message.tags %} class="{{message.tags}}"  {% endif %} >{{message}}</span>                
+            {% endfor %}
+        {% endif %}
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {{forms|crispy}}
+            <input type="submit" class="btn btn-success" value="Login">
+            
+        </form>
+    </div>
+</div>
+
+{% endblock content%}

@@ -1,0 +1,60 @@
+{% extends 'student/base.html' %}
+{% block navli %}
+    <li class="nav-item me-auto">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+    </li>
+{% endblock navli %}
+{% block content %}
+    <div class="row">
+        <div class="col-sm-4">
+            <h4 class="text-center alert alert-info">Add New Student</h4>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <span {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</span>
+                {% endfor %}
+            {% endif %}
+            <form action="" method="post">
+                {% csrf_token %}
+                {{forms.as_p}}
+                <input type="submit" class="btn btn-success" value="Add">
+            </form>
+        </div>
+        <div class="col-sm-7 offset-1">
+            <h4 class="text-center alert alert-info">Student Information</h4>
+            {% if students %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                      <th scope="col">Id</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Password</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stu in students %}
+                    <tr>
+                      <th scope="row">{{stu.id}}</th>
+                      <td>{{stu.name}}</td>
+                      <td>{{stu.email}}</td>
+                      <td>{{stu.password}}</td>
+                      <td>
+                          <a href="{% url 'updatedata' stu.id %}" class="btn btn-primary btn-sm">Edit</a>
+                          <a href="{% url 'deletedata' stu.id %}" onclick="alert('Are You sure Want To Delete?')" class="btn btn-danger btn-sm">Delete</a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+            {% else %}
+                <h4 class="text-center alert alert-warning">No Data Found</h4>
+            {% endif %}
+        </div>
+    </div>
+    
+    
+
+{% endblock content %}

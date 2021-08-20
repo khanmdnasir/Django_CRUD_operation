@@ -1,0 +1,26 @@
+{% extends 'student/base.html' %}
+{% block navli %}
+    <li class="nav-item me-auto">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+    </li>
+{% endblock navli %}
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-8 offset-2">
+        <h4 class="text-center alert alert-info">Update Students Information</h4>
+        {% if messages %}
+            {% for message in messages %}
+            <span {% if message.tags %} class="{{message.tags}}"  {% endif %} >{{message}}</span>                
+            {% endfor %}
+        {% endif %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{forms.as_p}}
+            <input type="submit" class="btn btn-success" value="Update">
+            <a href="{% url 'home' %}" class="btn btn-primary">Back To Home</a>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
